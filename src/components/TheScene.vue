@@ -4,6 +4,9 @@ import { ref } from "vue";
 import TheCameraRig from "./TheCameraRig.vue";
 import TheMainRoom from "./TheMainRoom.vue";
 
+import "../aframe/day-night-cycle.js";
+import "../aframe/listen-to.js";
+
 defineProps({
 	scale: Number,
 	overlaySelector: String,
@@ -24,8 +27,20 @@ const allAssetsLoaded = ref(false);
 		stats
 		fog="type: linear; color: #87CEEB; near:30; far:50;">
 		<a-assets @loaded="allAssetsLoaded = true">
-			<a-mixin id="fog_material" material="fog: false"></a-mixin>
-			<!-- <a-asset-item>
+			<a-asset-item
+				id="ocean_sound"
+				response-type="arraybuffer"
+				src="assets/ocean.mp3"
+				preload="auto"></a-asset-item>
+
+			<a-asset-item
+				id="train_sound"
+				response-type="arraybuffer"
+				src="assets/train_sound.mp3"
+				preload="auto"></a-asset-item>
+
+			<!-- <a-mixin id="fog_material" material="fog: false"></a-mixin>
+			<a-asset-item>
 				<img id="sky" src="/assets/sky.jpg" />
 			</a-asset-item>
 			<a-mixin id="sky_material" material="src: #sky"></a-mixin> -->
@@ -72,7 +87,7 @@ const allAssetsLoaded = ref(false);
         Model author: https://sketchfab.com/metrosp (metrosp)
         Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
       -->
-			<a-asset-item id="train" src="assets/train.glb"></a-asset-item>
+			<a-asset-item id="train_model" src="assets/train.glb"></a-asset-item>
 
 			<!--
         Title: Onsen
@@ -81,6 +96,14 @@ const allAssetsLoaded = ref(false);
         Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
       -->
 			<a-asset-item id="onsen" src="assets/onsen.glb"></a-asset-item>
+
+			<!--
+        Title: Clouds
+        Model source: https://sketchfab.com/3d-models/train-1a87a133a54c40fdb313f87e7cdc398f
+        Model author: https://sketchfab.com/metrosp (metrosp)
+        Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
+      -->
+			<a-asset-item id="clouds" src="assets/clouds.glb"></a-asset-item>
 		</a-assets>
 
 		<template v-if="allAssetsLoaded">
@@ -98,18 +121,29 @@ const allAssetsLoaded = ref(false);
 				width="500"
 				depth="200"
 				density="100"
-				speed="3"></a-ocean>
+				speed="3"
+				listen-to="target: a-scene; event: enter-scene; emit: play-sound"
+				sound="src: #ocean_sound; on: play-sound; loop: true; volume: 15;"></a-ocean>
 		</template>
 
-		<a-light
-			type="directional"
-			color="#FFF"
-			intensity="1"
-			position="2 4 -1"></a-light>
+		<!-- sun -->
+		<a-entity
+			id="sun"
+			light="type: directional; color: #FFA500; intensity: 1"
+			position="0 1 -1"
+			animation="property: light.color; from: #FFA500; to: #FFA500; dur: 5000; easing: easeInQuad; loop: false"
+			animation__pos="property: position; to: 0 -1 -1; dur: 45000; easing: easeInQuad; loop: false"
+			animation__intensity="property: light.intensity; from: 1; to: 0.1; dur: 45000; easing: easeInQuad; loop: false">
+		</a-entity>
+
+		<!--light -->
+		<a-entity light="type: ambient; color: #555; intensity: 0.3"></a-entity>
 
 		<!-- sky -->
 		<!-- <a-sky src="#sky" mixin="fog_material sky_material"></a-sky> -->
 
-		<TheCameraRig />
+		<a-entity day-night-cycle="duration: 45000;"></a-entity>
+
+		<TheCameraRig position="-5 0.45 0" />
 	</a-scene>
 </template>

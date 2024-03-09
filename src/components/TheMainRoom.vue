@@ -1,35 +1,72 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from "vue";
-import { randomHsl } from "../utils/color.js";
+import { ref, computed, onMounted } from "vue";
 import PortalTeleporter from "./PortalTeleporter.vue";
 import ExitDoor from "./ExitDoor.vue";
 
 import "../aframe/bind-position.js";
 import "../aframe/generate-train_rail.js";
+import "../aframe/generate-clouds.js";
 
 defineProps({
 	scale: Number,
 });
 
-const colorBoxLeft = ref(randomHsl());
-const colorBoxRight = ref(randomHsl());
-
 /// Initialize the train position
-const trainPosition = ref({ x: -50, y: 1.355, z: -5 });
+const trainPosition = ref({ x: -50, y: 0, z: -5 });
 
 // Computed to check if the train is in position
 const isTrainInPosition = computed(() => {
 	return (
 		trainPosition.value.x === 3.5 &&
-		trainPosition.value.y === 1.355 &&
+		trainPosition.value.y === 0 &&
 		trainPosition.value.z === -5
 	);
 });
-
 // Update the train position
 const updateTrainPosition = () => {
-	trainPosition.value = { x: 3.5, y: 1.355, z: -5 };
+	trainPosition.value = { x: 3.5, y: 0, z: -5 };
 };
+
+const isTrainInSecondPosition = computed(() => {
+	return (
+		trainPosition.value.x === 200 &&
+		trainPosition.value.y === 0 &&
+		trainPosition.value.z === -5
+	);
+});
+// Update the train position
+const updateSecondTrainPosition = () => {
+	trainPosition.value = { x: 200, y: 0, z: -5 };
+};
+
+function startTrain() {
+	console.log("start train");
+
+	// Delay the train start
+	setTimeout(() => {
+		document.querySelector("#train").emit("start-train");
+
+		document
+			.querySelector("#camera-rig")
+			.setAttribute("bind-position", "target: #train;");
+	}, 2000);
+}
+
+function playSound() {
+	const train = document.querySelector("#train");
+	train.components.sound.playSound();
+}
+
+function stopSound() {
+	const train = document.querySelector("#train");
+	train.components.sound.stopSound();
+}
+
+onMounted(() => {
+	const train = document.querySelector("#train");
+	train.addEventListener("animationbegin", playSound);
+	train.addEventListener("animationcomplete", stopSound);
+});
 </script>
 
 <template>
@@ -37,12 +74,6 @@ const updateTrainPosition = () => {
 	<a-entity light="type: ambient; color: #A3A7BF"></a-entity>
 
 	<a-entity id="train_station">
-		<a-entity
-			geometry="primitive: box; width: 1; height: 1; depth: 6.5"
-			position="0 0 0"
-			material="color: #A6A6A6; "
-			rotation="0 0 0"></a-entity>
-
 		<!-- train stop -->
 		<a-entity
 			gltf-model="#train_station"
@@ -82,56 +113,76 @@ const updateTrainPosition = () => {
 	<!-- train rail -->
 	<a-entity id="train_rails" generate-train_rail="numRails: 200"> </a-entity>
 
+	<!-- clouds -->
+	<a-entity
+		generate-clouds="numClouds: 100; minHeight: 15; maxHeight: 50; minScale: 1; maxScale: 7;">
+	</a-entity>
+
 	<!-- train -->
+
 	<a-entity
 		id="train"
-		position="-150 0 -5"
-		animation="property: position; to: -3.25 0 -5; dur: 200; easing: easeOutQuad;"
-		@animationcomplete="updateTrainPosition">
-		<a-entity id="train_model" gltf-model="#train" rotation="0 0 0" scale="1 1 1">
+		position="-100 0 -5"
+		animation__arrive="property: position; to: -3.25 0 -5; dur: 7000; easing: easeOutQuad;"
+		animation__stop="property: position; to: 200 0 -5; dur: 10000; easing: easeInOutQuad; startEvents: start-train;"
+		@animationbegin="playSound"
+		@animationcomplete="stopSound"
+		@animationcomplete__arrive="updateTrainPosition"
+		@animationcomplete__stop="updateSecondTrainPosition"
+		sound="src: #train_sound; autoplay: false">
+		<a-entity
+			id="train_model"
+			gltf-model="#train_model"
+			rotation="0 0 0"
+			scale="1 1 1">
 		</a-entity>
 
 		<!-- nav mesh -->
-		<a-entity
+		<!-- <a-entity
 			id="train-nav-mesh"
-			position="-1 0 0"
+			position="-1 0.89 0"
 			geometry="primitive: plane; height: 3; width: 12.480"
 			rotation="-90 0 0"
 			data-role="nav-mesh"
-			material="color: green"
-			visible="true"></a-entity>
+			material="color: #00ff00"
+			visible="false"></a-entity> -->
 	</a-entity>
 
 	<!-- Train entry portal -->
 	<template v-if="isTrainInPosition">
-		<a-entity @click="onTeleport">
+		<a-entity>
 			<PortalTeleporter
+				id="portal"
 				label="Enter the Train"
 				material="color: #0000FF"
-				position="1.530 1.933 -3.457"
+				position="1.590 1.991 -3.457"
 				rotation="0 0 0"
-				_x="0"
-				_y="1"
-				_z="-5"
+				@click="startTrain()"
 				x="0"
-				y="1.5"
-				z="-6"
-				cameraX="0"
-				cameraY="1.5"
-				cameraZ="-6"
-				:rot="0"
-				:cameraEffect="false" />
+				y="0.9"
+				z="-5" />
 			<!-- -3.25 0 -5 -->
 		</a-entity>
 	</template>
 
-	<a-entity id="train_stop">
-		<a-entity
-			geometry="primitive: box; width: 1; height: 1; depth: 6.5"
-			position="0 0 0"
-			material="color: #A6A6A6; "
-			rotation="0 0 0"></a-entity>
+	<!-- Train exit portal -->
+	<template v-if="isTrainInSecondPosition">
+		<!-- <a-entity>
+			<PortalTeleporter
+				id="portaltwo"
+				label="Exit the Train"
+				material="color: #0000FF"
+				position="203.922 1.991 -4.850"
+				rotation="0 -90 0"
+				x="197"
+				y="0.45"
+				z="0" />
+		</a-entity> -->
+	</template>
 
+	<ExitDoor id="exit"></ExitDoor>
+
+	<a-entity id="train_stop">
 		<!-- train stop -->
 		<a-entity
 			gltf-model="#onsen"
@@ -145,20 +196,27 @@ const updateTrainPosition = () => {
 			id="bench"
 			gltf-model="#bench"
 			rotation="0 180 0"
-			position="201.868 0.475 0"
+			position="204 0.475 0"
 			scale="0.700 0.700 0.700">
 		</a-entity>
 	</a-entity>
 
-	<ExitDoor />
-
 	<!-- Main room navigation mesh  -->
-	<a-entity
-		id="main-room-nav-mesh"
+	<!-- <a-entity
+		id="train-station-nav-mesh"
 		geometry="primitive: plane; height: 21.260; width: 30.950"
-		position="-10.180 0 7.560"
+		position="-10.180 -0.1 7.560"
 		rotation="-90 0 0"
 		data-role="nav-mesh"
-		material="color: blue"
-		visible="true"></a-entity>
+		material="color: #ff0000"
+		visible="false"></a-entity> -->
+
+	<a-entity
+		id="train-stop-nav-mesh"
+		geometry="primitive: plane; height: 17.800; width: 15"
+		position="199.520 -0.1 5.722"
+		rotation="-90 0 0"
+		data-role="nav-mesh"
+		material="color: #ff0000"
+		visible="false"></a-entity>
 </template>

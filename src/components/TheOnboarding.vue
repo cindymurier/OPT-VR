@@ -15,6 +15,7 @@ function enterScene() {
 	) {
 		document.querySelector("a-scene").enterVR();
 	}
+	document.querySelector("a-scene").emit("enter-scene");
 }
 </script>
 
