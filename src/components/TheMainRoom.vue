@@ -75,7 +75,6 @@ function playContemplationSound(e) {
 
 onMounted(() => {
 	const train = document.querySelector("#train");
-	// Écoutez le début de l'animation pour jouer le son de contemplation
 	train.addEventListener("animationbegin", playContemplationSound);
 });
 
@@ -133,7 +132,7 @@ onMounted(() => {
 
 	<!-- clouds -->
 	<a-entity
-		generate-clouds="numClouds: 50; minHeight: 15; maxHeight: 50; minScale: 1; maxScale: 7;">
+		generate-clouds="numClouds: 50; minHeight: 15; maxHeight: 40; minScale: 1; maxScale: 7;">
 	</a-entity>
 
 	<!-- fish -->
@@ -163,7 +162,7 @@ onMounted(() => {
 		@animationcomplete="stopSound"
 		@animationcomplete__arrive="updateTrainPosition"
 		@animationcomplete__stop="updateSecondTrainPosition"
-		sound="src: #train_sound; autoplay: false; volume: 0.1;">
+		sound="src: #train_sound; autoplay: false; volume: 0.3;">
 		<a-entity
 			id="train_model"
 			gltf-model="#train_model"
@@ -245,7 +244,7 @@ onMounted(() => {
 		position="150 -350 -40"
 		rotation="0 0 0"
 		scale="50 50 50"
-		animation="property: position; to: 150 4 -40; dur: 50000; easing: easeOutCubic; startEvents: start-moving;">
+		animation="property: position; to: 150 3 -40; dur: 45000; easing: easeOutCubic; startEvents: start-moving;">
 	</a-entity>
 
 	<!-- Main room navigation mesh  -->

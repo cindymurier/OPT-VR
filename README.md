@@ -29,8 +29,25 @@
 
 ### 3D models
 
-- **Main room** – [VR Gallery](https://sketchfab.com/3d-models/vr-gallery-1ac32ed62fdf424498acc146fad31f7e) by [Maxim Mavrichev](https://sketchfab.com/mvrc.art) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-- **3D physic room** – [3d_gallery_for_vr_projects](https://sketchfab.com/3d-models/3d-gallery-for-vr-projects-68f77ed8558c4bd59e0a13e2cc9d1fd1) by [tekuto1s](https://sketchfab.com/tekuto1s) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Rail Minecraft](https://sketchfab.com/3d-models/rail-minecraft-e5a71540d31940408366252c7c7c55df) by [JDanielHE](https://sketchfab.com/JDanielHE) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [train-station](https://sketchfab.com/3d-models/train-station-74538d566a794e8ea86c72646bee5597) by [madexc](https://sketchfab.com/madexc) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Vending Machine](https://sketchfab.com/3d-models/vending-machine-5b9cf13565c5475497d8e56d7473c97c) by [晴路卡](https://sketchfab.com/l0y) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Bench [Minecraft]](https://sketchfab.com/3d-models/bench-minecraft-b594dc66811c4a8baf2cd5ccd6768530) by [sedona1029](https://sketchfab.com/sedona1029) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [CD810 motor train](https://sketchfab.com/3d-models/cd810-motor-train-121922992c4c44c9a121a40c82c79382) by [voxellation](https://sketchfab.com/continentialvoxels) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Minecraft Onsen](https://sketchfab.com/3d-models/minecraft-onsen-00316db3b52a4ed99b3f7b0afd8f3c59) by [fangzhangmnm](https://sketchfab.com/fangzhangmnm) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Cloud](https://sketchfab.com/3d-models/cloud-e2e3d3b273994e58a4d61ef554f61207) by [mamickabee](https://sketchfab.com/mamickabee) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Kaonashi & chihiro【Voxel](https://sketchfab.com/3d-models/kaonashi-chihirovoxel-2167b40a86b04621b39d30c60c0d08b9) by [adiobrick](https://sketchfab.com/adiobrick) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Humphead Fish](https://sketchfab.com/3d-models/humphead-fish-1279401697a1468e91c307cc52765d3c) by [CoolPixelpro](https://sketchfab.com/CoolPixelpro) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Origami - Water Lilies](https://sketchfab.com/3d-models/origami-water-lilies-b02aeabe3e0b461cb214c90e5a6b3b75) by [Clonk](https://sketchfab.com/Clonk) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Main room** – [Spirited Away Diorama - Jack Henderson AGA208](https://sketchfab.com/3d-models/spirited-away-diorama-jack-henderson-aga208-af157b89b72043e4850f9cbfc2db9822) by [JackVanH3D](https://sketchfab.com/JackVanH3D) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+
+### Sounds
+
+- **Main room** – [Beach Ocean Waves](https://opengameart.org/content/beach-ocean-waves) by [jasinski](https://freesound.org/people/jasinski/) 
+- **Main room** – [Train - Railroad - Traffic Sound](https://pixabay.com/sound-effects/train-railroad-traffic-sound-8002/) by [JuliusH](https://pixabay.com/users/juliush-3921568/) 
+- **Main room** – [Unreleased Game Music Pack, Cafofo - MUSIC - Contemplation 3](https://opengameart.org/content/unreleased-game-music-pack) by [estudiocafofo](https://opengameart.org/users/estudiocafofo) 
+
 
 ---
 
