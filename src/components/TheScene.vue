@@ -136,12 +136,12 @@ const allAssetsLoaded = ref(false);
 			<a-asset-item id="waterLilyModel" src="assets/water-lily.glb"></a-asset-item>
 
 			<!--
-        Title: spirted away house
+        Title: diorama
         Model source: https://sketchfab.com/3d-models/train-1a87a133a54c40fdb313f87e7cdc398f
         Model author: https://sketchfab.com/metrosp (metrosp)
         Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
       -->
-			<a-asset-item id="bathHouseModel" src="assets/bathhouse.glb"></a-asset-item>
+			<a-asset-item id="dioramaModel" src="assets/diorama.glb"></a-asset-item>
 		</a-assets>
 
 		<template v-if="allAssetsLoaded">

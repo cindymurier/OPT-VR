@@ -51,7 +51,7 @@ function startTrain() {
 		document
 			.querySelector("#camera-rig")
 			.setAttribute("bind-position", "target: #train;");
-	}, 2000);
+	}, 1500);
 }
 
 function playSound() {
@@ -133,7 +133,7 @@ onMounted(() => {
 
 	<!-- clouds -->
 	<a-entity
-		generate-clouds="numClouds: 100; minHeight: 15; maxHeight: 50; minScale: 1; maxScale: 7;">
+		generate-clouds="numClouds: 50; minHeight: 15; maxHeight: 50; minScale: 1; maxScale: 7;">
 	</a-entity>
 
 	<!-- fish -->
@@ -145,13 +145,7 @@ onMounted(() => {
 	<!-- water lilies -->
 	<a-entity
 		id="waterlilies"
-		generate-waterlilies="numWaterlilies: 50; yPosition: 0.120; minScale: 0.1; maxScale: 0.5; minX: 65; maxX: 175; minZ: 40; maxZ: -40;">
-	</a-entity>
-
-	<!-- fish -->
-	<a-entity
-		id="fish"
-		generate-fish="numFish: 10; minHeight: -10 ; maxHeight: 10; minX: 75; maxX: 95; minZ: -8 maxZ: -10;">
+		generate-waterlilies="numWaterlilies: 30; yPosition: 0.120; minScale: 0.1; maxScale: 0.5; minX: 65; maxX: 175; minZ: 40; maxZ: -40;">
 	</a-entity>
 
 	<!-- ambience sound -->
@@ -190,8 +184,8 @@ onMounted(() => {
 		<!-- nav mesh -->
 		<a-entity
 			id="train-nav-mesh"
-			position="-1 0.89 0"
-			geometry="primitive: plane; height: 3; width: 12.480"
+			position="3.8 0.89 0"
+			geometry="primitive: plane; height: 3; width: 2"
 			rotation="-90 0 0"
 			data-role="nav-mesh"
 			material="color: #00ff00"
@@ -202,16 +196,14 @@ onMounted(() => {
 	<template v-if="isTrainInPosition">
 		<a-entity>
 			<PortalTeleporter
-				id="portal"
 				label="Enter the Train"
-				position="1.590 1.991 -3.457"
-				rotation="0 0 0"
 				material="transparent: true ; opacity: 0;"
 				@click="startTrain()"
-				x="0"
-				y="0.9"
-				z="-5" />
-			<!-- -3.25 0 -5 -->
+				position="1.530 1.933 -3.457"
+				rotation="0 0 0"
+				x="-0.4"
+				y="1"
+				z="-4.8" />
 		</a-entity>
 	</template>
 
@@ -247,24 +239,24 @@ onMounted(() => {
 		</a-entity>
 	</a-entity>
 
-	<!-- <a-entity
-		id="bathHouse"
-		gltf-model="#bathHouseModel"
+	<a-entity
+		id="diorama"
+		gltf-model="#dioramaModel"
 		position="150 -350 -40"
 		rotation="0 0 0"
-		scale="0.050 0.050 0.050"
-		animation="property: position; to: 150 18 -40; dur: 50000; easing: easeOutCubic; startEvents: start-moving;">
-	</a-entity> -->
+		scale="50 50 50"
+		animation="property: position; to: 150 4 -40; dur: 50000; easing: easeOutCubic; startEvents: start-moving;">
+	</a-entity>
 
 	<!-- Main room navigation mesh  -->
 	<a-entity
-		id="train-station-nav-mesh"
+		id="main-room-nav-mesh"
 		geometry="primitive: plane; height: 21.260; width: 30.950"
-		position="-10.180 0.01 7.560"
+		position="-10.180 -0.1 7.560"
 		rotation="-90 0 0"
 		data-role="nav-mesh"
 		material="color: #ff0000"
-		visible="false"></a-entity>
+		visible="true"></a-entity>
 
 	<a-entity
 		id="train-stop-nav-mesh"

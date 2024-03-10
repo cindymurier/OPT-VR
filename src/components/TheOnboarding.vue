@@ -18,7 +18,7 @@ function enterScene() {
 	document.querySelector("a-scene").emit("enter-scene");
 	document.querySelector("#train").emit("arrive-train");
 	document.querySelector("#day-night-cycle").emit("start-cycle");
-	document.querySelector("#bathHouse").emit("start-moving");
+	document.querySelector("#diorama").emit("start-moving");
 }
 </script>
 
