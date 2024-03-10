@@ -25,7 +25,7 @@ const allAssetsLoaded = ref(false);
       wasmUrl: lib/physx.release.wasm;
     "
 		stats
-		fog="type: linear; color: #87CEEB; near:30; far:50;">
+		fog="type: linear; color: #87CEEB; near:30; far:45;">
 		<a-assets @loaded="allAssetsLoaded = true">
 			<a-asset-item
 				id="ocean_sound"
@@ -37,6 +37,12 @@ const allAssetsLoaded = ref(false);
 				id="train_sound"
 				response-type="arraybuffer"
 				src="assets/train_sound.mp3"
+				preload="auto"></a-asset-item>
+
+			<a-asset-item
+				id="contemplation_sound"
+				response-type="arraybuffer"
+				src="assets/contemplation3.wav"
 				preload="auto"></a-asset-item>
 
 			<!-- <a-mixin id="fog_material" material="fog: false"></a-mixin>
@@ -104,6 +110,38 @@ const allAssetsLoaded = ref(false);
         Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
       -->
 			<a-asset-item id="clouds" src="assets/clouds.glb"></a-asset-item>
+
+			<!--
+        Title: No-face
+        Model source: https://sketchfab.com/3d-models/train-1a87a133a54c40fdb313f87e7cdc398f
+        Model author: https://sketchfab.com/metrosp (metrosp)
+        Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
+      -->
+			<a-asset-item id="no-face" src="assets/no-face.glb"></a-asset-item>
+
+			<!--
+        Title: Fish
+        Model source: https://sketchfab.com/3d-models/train-1a87a133a54c40fdb313f87e7cdc398f
+        Model author: https://sketchfab.com/metrosp (metrosp)
+        Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
+      -->
+			<a-asset-item id="fishModel" src="assets/fish.glb"></a-asset-item>
+
+			<!--
+        Title: water lily
+        Model source: https://sketchfab.com/3d-models/train-1a87a133a54c40fdb313f87e7cdc398f
+        Model author: https://sketchfab.com/metrosp (metrosp)
+        Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
+      -->
+			<a-asset-item id="waterLilyModel" src="assets/water-lily.glb"></a-asset-item>
+
+			<!--
+        Title: spirted away house
+        Model source: https://sketchfab.com/3d-models/train-1a87a133a54c40fdb313f87e7cdc398f
+        Model author: https://sketchfab.com/metrosp (metrosp)
+        Model license: CC BY 4.0 ( https://creativecommons.org/licenses/by/4.0/ )
+      -->
+			<a-asset-item id="bathHouseModel" src="assets/bathhouse.glb"></a-asset-item>
 		</a-assets>
 
 		<template v-if="allAssetsLoaded">
@@ -123,7 +161,7 @@ const allAssetsLoaded = ref(false);
 				density="100"
 				speed="3"
 				listen-to="target: a-scene; event: enter-scene; emit: play-sound"
-				sound="src: #ocean_sound; on: play-sound; loop: true; volume: 15;"></a-ocean>
+				sound="src: #ocean_sound; on: play-sound; loop: true; volume: 0.5;"></a-ocean>
 		</template>
 
 		<!-- sun -->
@@ -131,9 +169,9 @@ const allAssetsLoaded = ref(false);
 			id="sun"
 			light="type: directional; color: #FFA500; intensity: 1"
 			position="0 1 -1"
-			animation="property: light.color; from: #FFA500; to: #FFA500; dur: 5000; easing: easeInQuad; loop: false"
-			animation__pos="property: position; to: 0 -1 -1; dur: 45000; easing: easeInQuad; loop: false"
-			animation__intensity="property: light.intensity; from: 1; to: 0.1; dur: 45000; easing: easeInQuad; loop: false">
+			animation="property: light.color; from: #FFA500; to: #FFA500; dur: 30000; easing: easeInQuad; loop: false"
+			animation__pos="property: position; to: 0 -1 -1; dur: 60000; easing: easeInQuad; loop: false"
+			animation__intensity="property: light.intensity; from: 1; to: 0.1; dur: 60000; easing: easeInQuad; loop: false">
 		</a-entity>
 
 		<!--light -->
@@ -142,8 +180,8 @@ const allAssetsLoaded = ref(false);
 		<!-- sky -->
 		<!-- <a-sky src="#sky" mixin="fog_material sky_material"></a-sky> -->
 
-		<a-entity day-night-cycle="duration: 45000;"></a-entity>
+		<a-entity id="day-night-cycle" day-night-cycle="duration: 60000;"></a-entity>
 
-		<TheCameraRig position="-5 0.45 0" />
+		<TheCameraRig position="-5 0 0" />
 	</a-scene>
 </template>

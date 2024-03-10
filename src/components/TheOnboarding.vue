@@ -16,6 +16,9 @@ function enterScene() {
 		document.querySelector("a-scene").enterVR();
 	}
 	document.querySelector("a-scene").emit("enter-scene");
+	document.querySelector("#train").emit("arrive-train");
+	document.querySelector("#day-night-cycle").emit("start-cycle");
+	document.querySelector("#bathHouse").emit("start-moving");
 }
 </script>
 

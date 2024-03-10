@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import PortalTeleporter from "./PortalTeleporter.vue";
-import ExitDoor from "./ExitDoor.vue";
+import RestartDoor from "./RestartDoor.vue";
 
 import "../aframe/bind-position.js";
 import "../aframe/generate-train_rail.js";
 import "../aframe/generate-clouds.js";
+import "../aframe/generate-fish.js";
+import "../aframe/generate-waterlilies.js";
 
 defineProps({
 	scale: Number,
@@ -62,9 +64,25 @@ function stopSound() {
 	train.components.sound.stopSound();
 }
 
+function playContemplationSound(e) {
+	if (e.detail.name === "animation__stop") {
+		const contemplationSound = document.querySelector("#contemplationSound");
+		if (contemplationSound.components.sound) {
+			contemplationSound.components.sound.playSound();
+		}
+	}
+}
+
+onMounted(() => {
+	const train = document.querySelector("#train");
+	// Écoutez le début de l'animation pour jouer le son de contemplation
+	train.addEventListener("animationbegin", playContemplationSound);
+});
+
 onMounted(() => {
 	const train = document.querySelector("#train");
 	train.addEventListener("animationbegin", playSound);
+	train.addEventListener("animationbegin", playContemplationSound);
 	train.addEventListener("animationcomplete", stopSound);
 });
 </script>
@@ -118,18 +136,40 @@ onMounted(() => {
 		generate-clouds="numClouds: 100; minHeight: 15; maxHeight: 50; minScale: 1; maxScale: 7;">
 	</a-entity>
 
-	<!-- train -->
+	<!-- fish -->
+	<a-entity
+		id="fish"
+		generate-fish="numFish: 10; minHeight: -10 ; maxHeight: 10; minX: 75; maxX: 95; minZ: -3 maxZ: -2;">
+	</a-entity>
 
+	<!-- water lilies -->
+	<a-entity
+		id="waterlilies"
+		generate-waterlilies="numWaterlilies: 50; yPosition: 0.120; minScale: 0.1; maxScale: 0.5; minX: 65; maxX: 175; minZ: 40; maxZ: -40;">
+	</a-entity>
+
+	<!-- fish -->
+	<a-entity
+		id="fish"
+		generate-fish="numFish: 10; minHeight: -10 ; maxHeight: 10; minX: 75; maxX: 95; minZ: -8 maxZ: -10;">
+	</a-entity>
+
+	<!-- ambience sound -->
+	<a-entity
+		id="contemplationSound"
+		sound="src: #contemplation_sound; autoplay: false; loop: true; volume: 0.5;"></a-entity>
+
+	<!-- train -->
 	<a-entity
 		id="train"
-		position="-100 0 -5"
-		animation__arrive="property: position; to: -3.25 0 -5; dur: 7000; easing: easeOutQuad;"
-		animation__stop="property: position; to: 200 0 -5; dur: 10000; easing: easeInOutQuad; startEvents: start-train;"
+		position="-150 0 -5"
+		animation__arrive="property: position; to: -3.25 0 -5; dur: 10000; easing: easeOutQuad; startEvents: arrive-train; dir: alternate;"
+		animation__stop="property: position; to: 200 0 -5; dur: 40000; easing: easeInOutQuad; startEvents: start-train;"
 		@animationbegin="playSound"
 		@animationcomplete="stopSound"
 		@animationcomplete__arrive="updateTrainPosition"
 		@animationcomplete__stop="updateSecondTrainPosition"
-		sound="src: #train_sound; autoplay: false">
+		sound="src: #train_sound; autoplay: false; volume: 0.1;">
 		<a-entity
 			id="train_model"
 			gltf-model="#train_model"
@@ -137,15 +177,25 @@ onMounted(() => {
 			scale="1 1 1">
 		</a-entity>
 
+		<a-entity
+			id="noface"
+			gltf-model="#no-face"
+			rotation="0 90 0"
+			position="-0.056 0.204 -0.287"
+			scale="0.030 0.030 0.030"
+			material="opacity: 0.1; transparent: true"
+			animation__float="property: position; dir: alternate; dur: 2000; to: -0.056 0.4 -0.287; loop: true; easing: easeInOutSine">
+		</a-entity>
+
 		<!-- nav mesh -->
-		<!-- <a-entity
+		<a-entity
 			id="train-nav-mesh"
 			position="-1 0.89 0"
 			geometry="primitive: plane; height: 3; width: 12.480"
 			rotation="-90 0 0"
 			data-role="nav-mesh"
 			material="color: #00ff00"
-			visible="false"></a-entity> -->
+			visible="false"></a-entity>
 	</a-entity>
 
 	<!-- Train entry portal -->
@@ -154,9 +204,9 @@ onMounted(() => {
 			<PortalTeleporter
 				id="portal"
 				label="Enter the Train"
-				material="color: #0000FF"
 				position="1.590 1.991 -3.457"
 				rotation="0 0 0"
+				material="transparent: true ; opacity: 0;"
 				@click="startTrain()"
 				x="0"
 				y="0.9"
@@ -165,22 +215,18 @@ onMounted(() => {
 		</a-entity>
 	</template>
 
-	<!-- Train exit portal -->
+	<!-- Train restart door -->
 	<template v-if="isTrainInSecondPosition">
-		<!-- <a-entity>
-			<PortalTeleporter
-				id="portaltwo"
-				label="Exit the Train"
-				material="color: #0000FF"
-				position="203.922 1.991 -4.850"
-				rotation="0 -90 0"
-				x="197"
-				y="0.45"
-				z="0" />
-		</a-entity> -->
+		<RestartDoor
+			id="restart-door"
+			label="Restart"
+			position="203.922 1.991 -4.850"
+			rotation="0 -90 0"
+			material="transparent: true ; opacity: 0;"
+			x="197"
+			y="0.45"
+			z="0" />
 	</template>
-
-	<ExitDoor id="exit"></ExitDoor>
 
 	<a-entity id="train_stop">
 		<!-- train stop -->
@@ -201,15 +247,24 @@ onMounted(() => {
 		</a-entity>
 	</a-entity>
 
-	<!-- Main room navigation mesh  -->
 	<!-- <a-entity
+		id="bathHouse"
+		gltf-model="#bathHouseModel"
+		position="150 -350 -40"
+		rotation="0 0 0"
+		scale="0.050 0.050 0.050"
+		animation="property: position; to: 150 18 -40; dur: 50000; easing: easeOutCubic; startEvents: start-moving;">
+	</a-entity> -->
+
+	<!-- Main room navigation mesh  -->
+	<a-entity
 		id="train-station-nav-mesh"
 		geometry="primitive: plane; height: 21.260; width: 30.950"
-		position="-10.180 -0.1 7.560"
+		position="-10.180 0.01 7.560"
 		rotation="-90 0 0"
 		data-role="nav-mesh"
 		material="color: #ff0000"
-		visible="false"></a-entity> -->
+		visible="false"></a-entity>
 
 	<a-entity
 		id="train-stop-nav-mesh"
