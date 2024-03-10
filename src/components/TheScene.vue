@@ -28,8 +28,8 @@ const allAssetsLoaded = ref(false);
 		<a-assets @loaded="allAssetsLoaded = true">
 			<!--
         Title: Beach Ocean Waves
-        Music source: https://opengameart.org/content/beach-ocean-waves
-        Music author: https://freesound.org/people/jasinski/ (jasinski)
+        Sound source: https://opengameart.org/content/beach-ocean-waves
+        Sound author: https://freesound.org/people/jasinski/ (jasinski)
       -->
 			<a-asset-item
 				id="ocean_sound"
@@ -39,8 +39,8 @@ const allAssetsLoaded = ref(false);
 
 			<!--
         Title: Train - Railroad - Traffic Sound
-        Music source: https://pixabay.com/sound-effects/train-railroad-traffic-sound-8002/
-        Music author: https://pixabay.com/users/juliush-3921568/ (JuliusH)
+        Sound source: https://pixabay.com/sound-effects/train-railroad-traffic-sound-8002/
+        Sound author: https://pixabay.com/users/juliush-3921568/ (JuliusH)
       -->
 			<a-asset-item
 				id="train_sound"
@@ -50,8 +50,8 @@ const allAssetsLoaded = ref(false);
 
 			<!--
         Title: Unreleased Game Music Pack, Cafofo - MUSIC - Contemplation 3
-        Music source: https://opengameart.org/content/unreleased-game-music-pack
-        Music author: https://opengameart.org/users/estudiocafofo (estudiocafofo)
+        Sound source: https://opengameart.org/content/unreleased-game-music-pack
+        Sound author: https://opengameart.org/users/estudiocafofo (estudiocafofo)
       -->
 			<a-asset-item
 				id="contemplation_sound"
